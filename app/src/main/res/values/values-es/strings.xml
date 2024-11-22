@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Real Time Microphone</string>
+    <string name="setting">Configuración</string>
+    <string name="back">Atrás</string>
+    <string name="languages">Idiomas</string>
+    <string name="save">Guardar</string>
+    <string name="arabic">Árabe</string>
+    <string name="english">Inglés</string>
+    <string name="hindi">Hindi</string>
+    <string name="portagaues">Portugués</string>
+    <string name="french">Francés</string>
+    <string name="spanish">Español</string>
+    <string name="balance">Saldo</string>
+    <string name="volume">Volumen</string>
+    <string name="security">Seguridad</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="theme">Tema</string>
+    <string name="night_mode">Modo Nocturno</string>
+    <string name="connectivity">Conectividad</string>
+    <string name="share">Compartir</string>
+    <string name="rate">Valorar</string>
+    <string name="more">Más</string>
+    <string name="headphone_recommended">Se recomienda auriculares</string>
+    <string name="you_have_not_connected_to_any_earphone_please_connect_and_retry">No te has conectado a ningún auricular. Conéctate y vuelve a intentarlo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="retry">Reintentar</string>
+    <string name="this_action_can_contain_ads">Esta acción puede contener anuncios</string>
+    <string name="microphone_is_off">El micrófono está apagado</string>
+    <string name="not_connected_yet">¡Aún no conectado!</string>
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="hear_the_world_your_way">Escucha el mundo a tu manera</string>
+    <string name="speak_up_be_heard">Habla, sé escuchado</string>
+    <string name="lets_s_start_the_new_enivroment">Comencemos el nuevo entorno</string>
+    <string name="skip">Saltar</string>
+    <string name="next">Siguiente</string>
+    <string name="get_started">Empezar</string>
+
+</resources>

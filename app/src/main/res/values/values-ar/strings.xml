@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Real Time Microphone</string>
+    <string name="setting">الإعدادات</string>
+    <string name="back">رجوع</string>
+    <string name="languages">اللغات</string>
+    <string name="save">حفظ</string>
+    <string name="arabic">العربية</string>
+    <string name="english">الإنجليزية</string>
+    <string name="hindi">الهندية</string>
+    <string name="portagaues">البرتغالية</string>
+    <string name="french">الفرنسية</string>
+    <string name="spanish">الإسبانية</string>
+    <string name="balance">الرصيد</string>
+    <string name="volume">الصوت</string>
+    <string name="security">الأمان</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="theme">السمة</string>
+    <string name="night_mode">وضع الليل</string>
+    <string name="connectivity">الاتصال</string>
+    <string name="share">مشاركة</string>
+    <string name="rate">تقييم</string>
+    <string name="more">المزيد</string>
+    <string name="headphone_recommended">يفضل استخدام السماعات</string>
+    <string name="you_have_not_connected_to_any_earphone_please_connect_and_retry">لم تقم بالاتصال بأي سماعة. يرجى الاتصال وإعادة المحاولة</string>
+    <string name="cancel">إلغاء</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="this_action_can_contain_ads">يمكن أن يحتوي هذا الإجراء على إعلانات</string>
+    <string name="microphone_is_off">الميكروفون مغلق</string>
+    <string name="not_connected_yet">لم يتم الاتصال بعد!</string>
+    <string name="hello_blank_fragment">مرحبًا بك في الشاشة الفارغة</string>
+    <string name="hear_the_world_your_way">اسمع العالم بطريقتك</string>
+    <string name="speak_up_be_heard">تحدث، واستمع</string>
+    <string name="lets_s_start_the_new_enivroment">لنبدأ في البيئة الجديدة</string>
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="get_started">ابدأ</string>
+
+</resources>

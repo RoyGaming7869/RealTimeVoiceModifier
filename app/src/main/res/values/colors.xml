@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+<!--    <color name="mainbg">#FFFFFFFF</color>-->
+    <color name="gradient_dark">#141E30</color>
+    <color name="gradient_light">#243B55</color>
+    <color name="seek_pink">#FF4187</color>
+    <color name="seek_main">#B8831D</color>
+    <color name="seek_blue">#1E88E5</color>
+    <color name="seek_purple">#5E35B1</color>
+<!--    <color name="mainbg">#15383D</color>-->
+    <color name="mainbg">#21412F</color>
+    <color name="setting_yellow">#B8831D</color>
+</resources>

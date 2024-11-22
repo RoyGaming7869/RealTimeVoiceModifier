@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Real Time Microphone</string>
+    <string name="setting">Setting</string>
+    <string name="back">Back</string>
+    <string name="languages">Languages</string>
+    <string name="save">Save</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="portagaues">Portagaues</string>
+    <string name="french">French</string>
+    <string name="spanish">Spanish</string>
+    <string name="balance">Balance</string>
+    <string name="volume">Volume</string>
+    <string name="security">Security</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="theme">Theme</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="connectivity">Connectivity</string>
+    <string name="share">Share</string>
+    <string name="rate">Rate</string>
+    <string name="more">More</string>
+    <string name="headphone_recommended">Headphone Recommended</string>
+    <string name="you_have_not_connected_to_any_earphone_please_connect_and_retry">You have not connected to any earphone. Please connect and retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="this_action_can_contain_ads">This action can contain ads</string>
+    <string name="microphone_is_off">Microphone is off</string>
+    <string name="not_connected_yet">Not connected yet!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hear_the_world_your_way">Hear the World, Your Way</string>
+    <string name="speak_up_be_heard">Speak Up, Be Heard</string>
+    <string name="lets_s_start_the_new_enivroment">Lets\'s start the new Enivroment</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+</resources>
