@@ -30,102 +30,102 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.real.time.voice.modifier.Interface.AudioServiceCallback
-import com.real.time.voice.modifier.Service.AudioService
+import com.real.time.voice.modifier.Interface.MyServiceCallback
+import com.real.time.voice.modifier.Service.MyAudioService
 import com.chibde.visualizer.LineBarVisualizer
 
 
-class MainActivity : AppCompatActivity(), AudioServiceCallback {
-    private val REQUEST_RECORD_AUDIO_PERMISSION = 200
-    private var permissionToRecordAccepted = true
-    private val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
-    private var isOpen = false
+class MainActivity : AppCompatActivity(), MyServiceCallback {
+    private val REQUEST_RECORD_AUDIO_PERMISSION_CODE = 200
+    private var isPermissionToRecordAccepted = true
+    private val audioPermissions = arrayOf(Manifest.permission.RECORD_AUDIO)
+    private var isSettingsPanelOpen = false
 
-    private var audioRecord: AudioRecord? = null
+    private var audioRecorder: AudioRecord? = null
     companion object{
-        public var audioTrack: AudioTrack? = null
+        public var audioPlayer: AudioTrack? = null
     }
-    private var useEarphoneMic = true  // Variable to track user's choice
+    private var shouldUseEarphoneMic = true  // Variable to track user's choice
 
-    var isRecording=false
-    var balanceseek: SeekBar?=null
-    var volumeseek: SeekBar?=null
-    var eqFrame: FrameLayout?=null
-    var equalizer_icon: ImageView?= null
-    var switch_icon: ImageView?= null
-    var setting_icon: ImageView?= null
-    var stopservice= false
-    private var audioService: AudioService? = null
+    var isAudioRecording=false
+    var balanceSeekBar: SeekBar?=null
+    var volumeSeekBar: SeekBar?=null
+    var equalizerContainer: FrameLayout?=null
+    var equalizerIcon: ImageView?= null
+    var micSwitchIcon: ImageView?= null
+    var settingsIcon: ImageView?= null
+    var isServiceStopped= false
+    private var audioServiceInstance: MyAudioService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        helloid=findViewById(R.id.helloid)
-        eqFrame=findViewById(R.id.eqFrame)
-        equalizer_icon=findViewById(R.id.equalizer_icon)
-        switch_icon=findViewById(R.id.switch_icon)
-        setting_icon=findViewById(R.id.setting_icon)
-        isOpen=true
+        equalizerContainer=findViewById(R.id.eqFrame)
+        equalizerIcon=findViewById(R.id.equalizer_icon)
+        micSwitchIcon=findViewById(R.id.switch_icon)
+        settingsIcon=findViewById(R.id.setting_icon)
+        isSettingsPanelOpen=true
         // Request runtime permissions
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
+        ActivityCompat.requestPermissions(this, audioPermissions, REQUEST_RECORD_AUDIO_PERMISSION_CODE)
 
-        if (isServiceRunning(AudioService::class.java)){
-                switch_icon!!.setImageResource(R.drawable.switch_on_ic)
-            isRecording=true
+        if (isServiceRunning(MyAudioService::class.java)){
+                micSwitchIcon!!.setImageResource(R.drawable.switch_on_ic)
+            isAudioRecording=true
             var visualizer= findViewById<LineBarVisualizer>(R.id.visualizer)
             visualizer.setColor(ContextCompat.getColor(this,R.color.white))
             visualizer.setDensity(160f)
-            visualizer.setPlayer(AudioService.audioTrack!!.audioSessionId)
-            audioService?.setCallback(this@MainActivity)
+            visualizer.setPlayer(MyAudioService.audioTrack!!.audioSessionId)
+            audioServiceInstance?.setCallback(this@MainActivity)
             isServiceBound=true
         }
         else{
-            switch_icon!!.setImageResource(R.drawable.switch_off_ic)
+            micSwitchIcon!!.setImageResource(R.drawable.switch_off_ic)
         }
       //  startAudio()
-        balanceseek=findViewById(R.id.balanceseek)
-        volumeseek=findViewById(R.id.volumeseek)
+        balanceSeekBar=findViewById(R.id.balanceseek)
+        volumeSeekBar=findViewById(R.id.volumeseek)
 
-        setting_icon!!.setOnClickListener {
+        settingsIcon!!.setOnClickListener {
             startActivity(Intent(this@MainActivity,SettingActivity::class.java))
         }
 
-        switch_icon!!.setOnClickListener {
-            if (isRecording){
-                switch_icon!!.setImageResource(R.drawable.switch_off_ic)
+        micSwitchIcon!!.setOnClickListener {
+            if (isAudioRecording){
+                micSwitchIcon!!.setImageResource(R.drawable.switch_off_ic)
                 Log.d("isServiceBoundonSwitch", "isServiceBound: "+isServiceBound)
                 if (isServiceBound) {
-                    Log.d("isServiceBoundonSwitch", "audioService null: "+(audioService!=null).toString())
-                    if (audioService!=null) {
-                        audioService?.stopAudio()
+                    Log.d("isServiceBoundonSwitch", "audioService null: "+(audioServiceInstance!=null).toString())
+                    if (audioServiceInstance!=null) {
+                        audioServiceInstance?.stopAudio()
                     }
                     else{
-                        val stopServiceIntent = Intent(this, AudioService::class.java)
+                        val stopServiceIntent = Intent(this, MyAudioService::class.java)
                         stopService(stopServiceIntent)
-                        isRecording = false
+                        isAudioRecording = false
                         isServiceBound=false
                     }
                 }
 //                    stopAudioService()
             }
             else{
-                if (permissionToRecordAccepted) {
+                if (isPermissionToRecordAccepted) {
                     if (checkConnectedAudioDevice()) {
                         startAudioService()
-                        switch_icon!!.setImageResource(R.drawable.switch_on_ic)
+                        micSwitchIcon!!.setImageResource(R.drawable.switch_on_ic)
                     }
                     else{
                         showNoHeadphoneDialog()
                     }
                 }
                 else{
-                    ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
+                    ActivityCompat.requestPermissions(this, audioPermissions, REQUEST_RECORD_AUDIO_PERMISSION_CODE)
                 }
 //                startAudio()
             }
         }
 
-        balanceseek!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        balanceSeekBar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 setBalance(p1.toFloat())
             }
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
 
         })
 
-        volumeseek!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        volumeSeekBar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 setVolume(p1.toFloat())
             }
@@ -156,9 +156,9 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         })
 
 
-        equalizer_icon!!.setOnClickListener {
-            if (isServiceRunning(AudioService::class.java)) {
-                startActivity(Intent(this@MainActivity, EqualizerActivity::class.java))
+        equalizerIcon!!.setOnClickListener {
+            if (isServiceRunning(MyAudioService::class.java)) {
+                startActivity(Intent(this@MainActivity, EqualizeAudioActivity::class.java))
             }
             else{
                 Toast.makeText(this@MainActivity,
@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
             if (checkConnectedAudioDevice()){
                 dialog.dismiss()
                 startAudioService()
-                switch_icon!!.setImageResource(R.drawable.switch_on_ic)
+                micSwitchIcon!!.setImageResource(R.drawable.switch_on_ic)
             }
             else{
                 Toast.makeText(this@MainActivity,
@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
     }
 
     private fun setVolume(volume: Float) {
-        audioTrack?.setVolume(volume)
+        audioPlayer?.setVolume(volume)
     }
 
     // Function to adjust the balance (left/right audio channel ratio)
@@ -216,11 +216,11 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         val volumeLeft = 1.0f
         val volumeRight = if (balance > 0) 1.0f else 1.0f + balance
 
-        audioTrack?.setStereoVolume(volumeLeft * pan, volumeRight * (1.0f - pan))
+        audioPlayer?.setStereoVolume(volumeLeft * pan, volumeRight * (1.0f - pan))
 
     }
     private fun startAudio() {
-        if (permissionToRecordAccepted) {
+        if (isPermissionToRecordAccepted) {
             val bufferSize =
                 AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
 
@@ -232,12 +232,12 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
                 return
             }
 
-            val audioSource = if (useEarphoneMic) {
+            val audioSource = if (shouldUseEarphoneMic) {
                 MediaRecorder.AudioSource.MIC
             } else {
                 MediaRecorder.AudioSource.MIC
             }
-                audioRecord = AudioRecord(
+                audioRecorder = AudioRecord(
                     audioSource,
                     44100,
                     AudioFormat.CHANNEL_IN_MONO,
@@ -245,7 +245,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
                     bufferSize
                 )
 
-                audioTrack = AudioTrack.Builder()
+                audioPlayer = AudioTrack.Builder()
                     .setAudioAttributes(
                         AudioAttributes.Builder()
                             .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -262,8 +262,8 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
                     .setBufferSizeInBytes(bufferSize)
                     .build()
 
-                audioRecord?.startRecording()
-                audioTrack?.play()
+                audioRecorder?.startRecording()
+                audioPlayer?.play()
 
 //                isRecording = true
 
@@ -292,16 +292,16 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            REQUEST_RECORD_AUDIO_PERMISSION -> {
+            REQUEST_RECORD_AUDIO_PERMISSION_CODE -> {
                 if (grantResults!=null && grantResults.size>0) {
-                    permissionToRecordAccepted =
+                    isPermissionToRecordAccepted =
                         grantResults[0] == PackageManager.PERMISSION_GRANTED
                 }
             }
 
         }
 
-        if (!permissionToRecordAccepted) finish()
+        if (!isPermissionToRecordAccepted) finish()
         else{
             // Check if the notification permission is granted
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -320,24 +320,24 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
 
     private fun stopAudio() {
 //        isRecording = false
-        audioRecord?.stop()
-        audioRecord?.release()
-        audioTrack?.stop()
-        audioTrack?.release()
+        audioRecorder?.stop()
+        audioRecorder?.release()
+        audioPlayer?.stop()
+        audioPlayer?.release()
     }
 
     private fun startAudioService() {
-        stopservice=false
-        if (isServiceRunning(AudioService::class.java)){
+        isServiceStopped=false
+        if (isServiceRunning(MyAudioService::class.java)){
             Log.d("Track_Service", "startAudioService: Service already running trying to start audio")
             if (isServiceBound) {
-                audioService?.startAudio()
+                audioServiceInstance?.startAudio()
                 Log.d("Track_Service", "startAudioService: isService bound true")
             }
             else{
                 Log.d("Track_Service", "startAudioService: Service bound false")
-                isRecording=true
-                val serviceIntent = Intent(this, AudioService::class.java)
+                isAudioRecording=true
+                val serviceIntent = Intent(this, MyAudioService::class.java)
                 bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
 
                 ContextCompat.startForegroundService(this, serviceIntent)
@@ -349,8 +349,8 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
 
             if (!isServiceBound) {
                 Log.d("Track_Service", "startAudioService: Service bound false")
-                isRecording=true
-                val serviceIntent = Intent(this, AudioService::class.java)
+                isAudioRecording=true
+                val serviceIntent = Intent(this, MyAudioService::class.java)
                 bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
 
                 ContextCompat.startForegroundService(this, serviceIntent)
@@ -359,15 +359,15 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         }
 
 
-        Handler().postDelayed(Runnable { stopservice=true },3000)
+        Handler().postDelayed(Runnable { isServiceStopped=true },3000)
     }
 
     private var isServiceBound = false
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as AudioService.LocalBinder
-            audioService = binder.getService()
-            audioService?.setCallback(this@MainActivity)
+            val binder = service as MyAudioService.LocalBinder
+            audioServiceInstance = binder.getService()
+            audioServiceInstance?.setCallback(this@MainActivity)
             // Update isServiceBound flag
             isServiceBound = true
         }
@@ -377,7 +377,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         }
     }
     private fun stopAudioService() {
-        if (stopservice) {
+        if (isServiceStopped) {
             if (isServiceBound) {
                 // Unbind the service
                 unbindService(serviceConnection)
@@ -387,9 +387,9 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
                 Handler().postDelayed({
                     // Stop the service only if it is still bound
                     if (!isServiceBound) {
-                        val stopServiceIntent = Intent(this, AudioService::class.java)
+                        val stopServiceIntent = Intent(this, MyAudioService::class.java)
                         stopService(stopServiceIntent)
-                        isRecording = false
+                        isAudioRecording = false
                     }
                 }, 1000) // Adjust the delay as needed
             }
@@ -418,18 +418,18 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
         var visualizer= findViewById<LineBarVisualizer>(R.id.visualizer)
         visualizer.setColor(ContextCompat.getColor(this,R.color.white))
         visualizer.setDensity(160f)
-        visualizer.setPlayer(AudioService.audioTrack!!.audioSessionId)
+        visualizer.setPlayer(MyAudioService.audioTrack!!.audioSessionId)
 
     }
 
     override fun onRecordingStopped() {
-        if (isOpen) {
+        if (isSettingsPanelOpen) {
             if (isServiceBound) {
 
                 isServiceBound = false
             }
-            isRecording = false
-            switch_icon!!.setImageResource(R.drawable.switch_off_ic)
+            isAudioRecording = false
+            micSwitchIcon!!.setImageResource(R.drawable.switch_off_ic)
         }
     }
 
@@ -457,7 +457,7 @@ class MainActivity : AppCompatActivity(), AudioServiceCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        isOpen=false
+        isSettingsPanelOpen=false
     }
 
     override fun onResume() {

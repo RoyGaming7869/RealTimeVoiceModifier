@@ -3,7 +3,7 @@ package com.real.time.voice.modifier.Utils
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferencesHelper(context: Context) {
+class SPHelper(context: Context) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("real_microphone", Context.MODE_PRIVATE)

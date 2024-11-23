@@ -1,33 +1,31 @@
 package com.real.time.voice.modifier
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.real.time.voice.modifier.Utils.SharePrefsKey
-import com.real.time.voice.modifier.Utils.SharedPreferencesHelper
+import com.real.time.voice.modifier.Utils.SPHelper
 import com.real.time.voice.modifier.databinding.ActivityLanguageBinding
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
-import java.util.List
 import java.util.Locale
 
 
-class LanguageActivity : AppCompatActivity() {
+class SelectLanguageActivity : AppCompatActivity() {
     lateinit var binding: ActivityLanguageBinding
     var selectedlangugae=""
-    var sharedPreferencesHelper: SharedPreferencesHelper?=null
+    var SPHelper: SPHelper?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding= ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferencesHelper= SharedPreferencesHelper(this)
+        SPHelper= SPHelper(this)
 
         binding.backicon.setOnClickListener {
             finish()
         }
-        selectedlangugae=sharedPreferencesHelper!!.getString(SharePrefsKey.langugae,"")
+        selectedlangugae=SPHelper!!.getString(SharePrefsKey.langugae,"")
         if (selectedlangugae.equals("ar")){
             binding.arabiccheck.setImageResource(R.drawable.baseline_radio_button_checked_24)
         }
@@ -116,7 +114,7 @@ class LanguageActivity : AppCompatActivity() {
 
 
         binding.savecard.setOnClickListener {
-            sharedPreferencesHelper!!.putString(SharePrefsKey.langugae,selectedlangugae)
+            SPHelper!!.putString(SharePrefsKey.langugae,selectedlangugae)
             downloadSelectedLanguage(selectedlangugae)
             val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(selectedlangugae)
             AppCompatDelegate.setApplicationLocales(appLocale)

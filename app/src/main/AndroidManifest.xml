@@ -28,7 +28,7 @@
             android:name="com.real.time.voice.modifier.PrivacyPolicyActivity"
             android:exported="false" />
         <activity
-            android:name="com.real.time.voice.modifier.IntroductionActivity"
+            android:name="com.real.time.voice.modifier.OnBoardingActivity"
             android:exported="false" />
         <activity
             android:name="com.real.time.voice.modifier.SplashActivity"
@@ -40,20 +40,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.real.time.voice.modifier.LanguageActivity"
+            android:name="com.real.time.voice.modifier.SelectLanguageActivity"
             android:exported="false" />
         <activity
             android:name="com.real.time.voice.modifier.SettingActivity"
             android:exported="false" />
         <activity
-            android:name="com.real.time.voice.modifier.EqualizerActivity"
+            android:name="com.real.time.voice.modifier.EqualizeAudioActivity"
             android:exported="true" />
         <activity
             android:name="com.real.time.voice.modifier.MainActivity"
             android:exported="true"></activity>
 
         <service
-            android:name="com.real.time.voice.modifier.Service.AudioService"
+            android:name="com.real.time.voice.modifier.Service.MyAudioService"
             android:foregroundServiceType="microphone" />
 
         <meta-data

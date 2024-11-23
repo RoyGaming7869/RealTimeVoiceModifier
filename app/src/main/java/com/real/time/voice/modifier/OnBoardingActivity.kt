@@ -4,23 +4,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
-import com.real.time.voice.modifier.Adapters.SliderAdapter
+import com.real.time.voice.modifier.Adapters.OnBoardingAdapter
 import com.real.time.voice.modifier.Utils.SharePrefsKey
-import com.real.time.voice.modifier.Utils.SharedPreferencesHelper
+import com.real.time.voice.modifier.Utils.SPHelper
 import com.real.time.voice.modifier.databinding.ActivityIntroductionBinding
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 
-class IntroductionActivity : AppCompatActivity() {
+class OnBoardingActivity : AppCompatActivity() {
     lateinit var binding: ActivityIntroductionBinding
-    var sharedPreferencesHelper: SharedPreferencesHelper?=null
+    var SPHelper: SPHelper?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityIntroductionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferencesHelper=  SharedPreferencesHelper(this)
-        val adapter = SliderAdapter(supportFragmentManager)
+        SPHelper=  SPHelper(this)
+        val adapter = OnBoardingAdapter(supportFragmentManager)
         binding.viewpager.adapter = adapter
 
         binding.skiptxt.setOnClickListener {
@@ -30,7 +30,7 @@ class IntroductionActivity : AppCompatActivity() {
 
         binding.nexttxt.setOnClickListener {
             if (binding.viewpager.currentItem==2){
-                sharedPreferencesHelper!!.putBoolean(SharePrefsKey.login,true)
+                SPHelper!!.putBoolean(SharePrefsKey.login,true)
                 startActivity(Intent(this,MainActivity::class.java))
                 finish()
             }

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.real.time.voice.modifier.R
 
-class Intro3Fragment : Fragment() {
+class OnBoard3Fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

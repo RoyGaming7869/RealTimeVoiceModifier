@@ -14,7 +14,7 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.languagelinear.setOnClickListener {
-            startActivity(Intent(this,LanguageActivity::class.java))
+            startActivity(Intent(this,SelectLanguageActivity::class.java))
         }
 
         binding.sharelinear.setOnClickListener {

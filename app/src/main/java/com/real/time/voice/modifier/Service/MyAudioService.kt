@@ -24,24 +24,22 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
-import com.real.time.voice.modifier.Interface.AudioServiceCallback
+import com.real.time.voice.modifier.Interface.MyServiceCallback
 import com.real.time.voice.modifier.MainActivity
 import com.real.time.voice.modifier.R
-import com.chibde.visualizer.LineBarVisualizer
 
-class AudioService: Service() {
+class MyAudioService: Service() {
     private val binder: IBinder = LocalBinder()
     companion object{
         private var isRecording = false
         public var audioTrack: AudioTrack? = null
     }
     private var audioRecord: AudioRecord? = null
-    private var callback: AudioServiceCallback? = null
+    private var callback: MyServiceCallback? = null
 
     inner class LocalBinder : Binder() {
-        fun getService(): AudioService {
-            return this@AudioService
+        fun getService(): MyAudioService {
+            return this@MyAudioService
         }
     }
 
@@ -203,7 +201,7 @@ class AudioService: Service() {
     }
 
 
-    fun setCallback(callback: AudioServiceCallback) {
+    fun setCallback(callback: MyServiceCallback) {
         this.callback = callback
     }
 

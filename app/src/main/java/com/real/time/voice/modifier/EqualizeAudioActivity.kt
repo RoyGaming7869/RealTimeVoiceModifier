@@ -1,16 +1,15 @@
 package com.real.time.voice.modifier
 
-import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.real.time.voice.modifier.Service.AudioService
+import com.real.time.voice.modifier.Service.MyAudioService
 import com.bullhead.equalizer.EqualizerFragment
 
 //import com.bullhead.equalizer.EqualizerFragment
 
-class EqualizerActivity : AppCompatActivity() {
+class EqualizeAudioActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class EqualizerActivity : AppCompatActivity() {
 //
 //        supportFragmentManager.beginTransaction().replace(R.id.eqFrame,equalizerFragment).commit()
 
-        val sessionId = AudioService.audioTrack!!.getAudioSessionId()
+        val sessionId = MyAudioService.audioTrack!!.getAudioSessionId()
 
         val equalizerFragment= EqualizerFragment.Builder()
             .setAccentColor(ContextCompat.getColor(this,R.color.seek_main))
