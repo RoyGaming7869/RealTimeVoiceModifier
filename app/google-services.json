@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316845198811",
+    "project_id": "live-mic-and-equalizer",
+    "storage_bucket": "live-mic-and-equalizer.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316845198811:android:c520cf796f83ae6a68abfe",
+        "android_client_info": {
+          "package_name": "com.real.time.voice.modifier"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUoeq04KBrnr-_gx0RuU48Gx4wZPoEC9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

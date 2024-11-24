@@ -14,7 +14,7 @@ class EqualizeAudioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_equalizer)
+        setContentView(R.layout.activity_equalize_audio)
 //
 //        // Initialize MediaPlayer with the audio file from the raw folder
 //        mediaPlayer = MediaPlayer.create(this, R.raw.samplemusin)

@@ -14,7 +14,7 @@ class OnBoard3Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro3, container, false)
+        return inflater.inflate(R.layout.fragment_on_boarding3, container, false)
     }
 
 }

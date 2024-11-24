@@ -7,23 +7,24 @@ import androidx.viewpager.widget.ViewPager
 import com.real.time.voice.modifier.Adapters.OnBoardingAdapter
 import com.real.time.voice.modifier.Utils.SharePrefsKey
 import com.real.time.voice.modifier.Utils.SPHelper
-import com.real.time.voice.modifier.databinding.ActivityIntroductionBinding
+import com.real.time.voice.modifier.databinding.ActivityOnboardingBinding
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 
 class OnBoardingActivity : AppCompatActivity() {
-    lateinit var binding: ActivityIntroductionBinding
+    lateinit var binding: ActivityOnboardingBinding
     var SPHelper: SPHelper?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityIntroductionBinding.inflate(layoutInflater)
+        binding= ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         SPHelper=  SPHelper(this)
         val adapter = OnBoardingAdapter(supportFragmentManager)
         binding.viewpager.adapter = adapter
 
         binding.skiptxt.setOnClickListener {
+            SPHelper!!.putBoolean(SharePrefsKey.login,true)
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         }
